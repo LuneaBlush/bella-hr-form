@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Bella Bullying</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(#2C254F, #1E1A38);
+            color: #FDFBFF;
+            font-family: 'Fredoka', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background: #3A3066;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 15px #00000055;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        textarea {
+            width: 90%;
+            height: 100px;
+            border-radius: 10px;
+            border: none;
+            padding: 10px;
+            resize: none;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #FBE9A6;
+            color: #2C254F;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .spinner {
+            animation: spin 2s linear infinite;
+            height: 40px;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
+        .shred-container {
+            background-color: #1E1A38;
+            padding: 10px;
+            margin: 10px auto;
+            width: 90%;
+            max-width: 450px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .shredded {
+            animation: shred 2s forwards;
+        }
+        @keyframes shred {
+            to {
+                transform: translateY(150px) rotate(5deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="form-screen">
+        <h1>Report Bella Bullying</h1>
+        <p>Please describe your emotional damage in the box below.</p>
+        <textarea id="complaint" placeholder="Example: She called me baldy and then rolled higher than me."></textarea>
+        <button onclick="submitComplaint()">Send Complaint</button>
+    </div>
+
+    <div class="container hidden" id="loading-screen">
+        <h2>Indexing bullying severity…</h2>
+        <div class="spinner">🌟</div>
+    </div>
+
+    <div class="container hidden" id="shred-screen">
+        <h2>Thank you. Your complaint has been securely discarded.</h2>
+        <div class="shred-container">
+            <p id="shred-text"></p>
+        </div>
+        <p>- Bella HR</p>
+        <audio id="shred-audio" src="https://cdn.pixabay.com/audio/2022/03/15/audio_5b124417a1.mp3" autoplay></audio>
+    </div>
+
+    <script>
+        function submitComplaint() {
+            const text = document.getElementById('complaint').value;
+            document.getElementById('form-screen').classList.add('hidden');
+            document.getElementById('loading-screen').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+                document.getElementById('shred-screen').classList.remove('hidden');
+                const shredText = document.getElementById('shred-text');
+                shredText.textContent = text;
+                shredText.classList.add('shredded');
+                document.getElementById('shred-audio').play();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
